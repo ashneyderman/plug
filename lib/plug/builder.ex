@@ -130,9 +130,12 @@ defmodule Plug.Builder do
 
     {conn, body} = Plug.Builder.compile(env, plugs, builder_opts)
 
-    quote do
+    q = quote do
       defp plug_builder_call(unquote(conn), _), do: unquote(body)
     end
+    
+    IO.puts "body: #{Macro.to_string(q)}"
+    q
   end
 
   @doc """
